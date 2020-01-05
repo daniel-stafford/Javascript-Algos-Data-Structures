@@ -7,7 +7,31 @@
 //   anagrams('rail safety', 'fairy tales') --> True
 //   anagrams('RAIL! SAFETY!', 'fairy tales') --> True
 //   anagrams('Hi there', 'Bye there') --> False
+const cleanString = word =>
+  word
+    .toLowerCase()
+    .replace(/[^\w\s]/gi, "")
+    .split("")
+    .sort()
+    .join("")
+    .trim()
 
-function anagrams(stringA, stringB) {}
+const createMap = (word, map) => {
+  for (letter of word) {
+    if (!map[letter]) {
+      map[letter] = 1
+    } else map[letter]++
+  }
+}
 
-module.exports = anagrams;
+function anagrams(stringA, stringB) {
+  const mapA = {}
+  const mapB = {}
+  const wordA = cleanString(stringA)
+  const wordB = cleanString(stringB)
+  createMap(wordA, mapA)
+  createMap(wordB, mapB)
+  return JSON.stringify(mapA) === JSON.stringify(mapB)
+}
+
+module.exports = anagrams
